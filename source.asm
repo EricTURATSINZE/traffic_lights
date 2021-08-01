@@ -1,3 +1,5 @@
+    ;ASSIGNMENT 2 TRAFFIC LIGHT USING ASSEMBLY LANGUAGE
+    ;Cedrick GAHAMANYI (218007750) AND Eric TURATSINZE(218009832) 
     
  STATUS equ 03h ;STATUS Register for Selecting Bank
      RP0 equ 05
@@ -36,8 +38,7 @@
     BCF STATUS, RP1; RP1=0
  
  ; Now let us turn on pin 1 at PORTD
-SART	MOVLW 0x01
-    MOVWF PORTD; Turn on pin 1 on PORTD
+SART	BSF PORTD, 0; Turn on pin 1 on PORTD
     ;DELAY 
     
     MOVLW 0xff
@@ -46,52 +47,32 @@ SART	MOVLW 0x01
 Loop1	DECFSZ COUNTER, 1; Subtract 1 from 255
     GOTO    Loop1	; it will loop until zero 0
 
-    MOVLW 0x00
-    MOVWF PORTD	;turn OFF all pins on PORTD
+    BCF PORTD, 0  ;turn off pin 1 on PORTD
     
-    MOVLW 0xff
-    MOVWF COUNTER  ; SET Counter to 0xff
-
-Loop2	DECFSZ COUNTER, 1; Subtract 1 from 255
-    GOTO    Loop2	; it will loop until zero 0
-    
-    MOVLW 0x02
+    MOVLW 0x02	;YOU can turn on pin 2 using either BSF or passing through the working Register
     MOVWF PORTD ;turn on pin 2 on PORTD
 
        ;Delay
     MOVLW 0xff
     MOVWF COUNTER    ;Set Counter to 0xff
-    
    
+Loop2	DECFSZ COUNTER, 1; Subtract 1 from 255
+    GOTO    Loop2	; it will loop until zero 0
+    
+    BCF PORTD, 1    ;turn off pin 2 on PORTD
+    
+    BSF PORTD, 2    ;turn on pin 3 on PortD
+    
+    MOVLW 0xff
+    MOVWF COUNTER  ; SET Counter to 0xff
+    
 Loop3	DECFSZ COUNTER, 1; Subtract 1 from 255
     GOTO    Loop3	; it will loop until zero 0
     
     MOVLW 0x00
     MOVWF PORTD	;turn OFF all pins on PORTD
     
-    MOVLW 0xff
-    MOVWF COUNTER  ; SET Counter to 0xff
-    
-Loop5	DECFSZ COUNTER, 1; Subtract 1 from 255
-    GOTO    Loop5	; it will loop until zero 0
-    
-    MOVLW 0x04
-    MOVWF PORTD ;turn on pin 3 on PortD
-    
-    MOVLW 0xff
-    MOVWF COUNTER  ; SET Counter to 0xff
-    
-Loop6	DECFSZ COUNTER, 1; Subtract 1 from 255
-    GOTO    Loop6	; it will loop until zero 0
-    
-    MOVLW 0x00
-    MOVWF PORTD	;turn OFF all pins on PORTD
-    
-    MOVLW 0xff
-    MOVWF COUNTER  ; SET Counter to 0xff
-    
-Loop7	DECFSZ COUNTER, 1; Subtract 1 from 255
-    GOTO    Loop7	; it will loop until zero 
+    BCF PORTD, 2  ;turn off pin 3 on PORTD 
 
     GOTO    SART
  
